@@ -6,7 +6,6 @@
 
   <title>Support HarshhPlays</title>
 
-  <!-- QR Code Library -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 
   <style>
@@ -82,7 +81,7 @@
     }
 
     .upi-label {
-      color: #888;
+      color: #888888;
       font-size: 13px;
       margin-bottom: 7px;
     }
@@ -122,14 +121,14 @@
     .note {
       margin-top: 20px;
       font-size: 13px;
-      color: #888;
-      line-height: 1.5;
+      color: #888888;
+      line-height: 1.6;
     }
 
     .thanks {
       margin-top: 20px;
       font-size: 14px;
-      color: #777;
+      color: #777777;
     }
 
     #copied {
@@ -163,6 +162,7 @@
 
     <!-- UPI ID -->
     <div class="upi-box">
+
       <div class="upi-label">
         UPI ID
       </div>
@@ -170,9 +170,10 @@
       <div class="upi-id">
         9834417914@ybl
       </div>
+
     </div>
 
-    <!-- COPY BUTTON -->
+    <!-- COPY UPI ID -->
     <button class="button copy-button" onclick="copyUPI()">
       COPY UPI ID
     </button>
@@ -181,16 +182,11 @@
       UPI ID copied!
     </div>
 
-    <!-- UPI DEEP LINK -->
-    <a
-      class="button"
-      href="upi://pay?pa=9834417914@ybl&pn=HarshhPlays">
-      PAY WITH UPI
-    </a>
-
+    <!-- INSTRUCTIONS -->
     <div class="note">
-      Android users can try "Pay With UPI".<br>
-      You can also scan the QR code using your preferred UPI app.
+      Scan the QR code using Google Pay, PhonePe, Paytm, CRED or any UPI app.
+      <br><br>
+      You can also copy the UPI ID and pay manually from your preferred UPI app.
     </div>
 
     <div class="thanks">
@@ -228,6 +224,10 @@
         setTimeout(function() {
           document.getElementById("copied").style.display = "none";
         }, 2000);
+
+      }).catch(function() {
+
+        alert("Please copy the UPI ID manually: " + upiID);
 
       });
 
