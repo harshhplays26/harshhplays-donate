@@ -3,7 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <title>Support HarshhPlays</title>
+
+  <!-- QR Code Library -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 
   <style>
     * {
@@ -20,12 +24,13 @@
       background: #050505;
       color: white;
       font-family: Arial, sans-serif;
+      padding: 20px;
     }
 
     .card {
-      width: 90%;
+      width: 100%;
       max-width: 500px;
-      padding: 40px 30px;
+      padding: 35px 25px;
       text-align: center;
       background: #101010;
       border: 1px solid #39ff88;
@@ -35,8 +40,8 @@
 
     h1 {
       color: #39ff88;
-      font-size: 36px;
-      margin-bottom: 10px;
+      font-size: 34px;
+      margin-bottom: 12px;
     }
 
     p {
@@ -45,33 +50,93 @@
       line-height: 1.6;
     }
 
-    .upi {
+    .qr-box {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: white;
+      width: 230px;
+      height: 230px;
+      margin: 0 auto 20px;
+      padding: 15px;
+      border-radius: 15px;
+    }
+
+    #qrcode img {
+      width: 200px;
+      height: 200px;
+    }
+
+    .scan-text {
+      color: #39ff88;
+      font-weight: bold;
+      font-size: 16px;
+      margin-bottom: 20px;
+    }
+
+    .upi-box {
       background: #181818;
       padding: 15px;
       border-radius: 10px;
-      margin-bottom: 20px;
+      margin-bottom: 15px;
+    }
+
+    .upi-label {
+      color: #888;
+      font-size: 13px;
+      margin-bottom: 7px;
+    }
+
+    .upi-id {
+      color: white;
       font-size: 16px;
+      font-weight: bold;
+      word-break: break-all;
     }
 
     .button {
-      display: inline-block;
-      padding: 14px 28px;
+      display: block;
+      width: 100%;
+      padding: 14px 20px;
       background: #39ff88;
       color: #050505;
       text-decoration: none;
       font-weight: bold;
       border-radius: 10px;
-      transition: 0.2s;
+      border: none;
+      cursor: pointer;
+      font-size: 15px;
+      margin-top: 12px;
+    }
+
+    .copy-button {
+      background: #222222;
+      color: white;
+      border: 1px solid #333333;
     }
 
     .button:hover {
-      transform: scale(1.05);
+      transform: scale(1.02);
+    }
+
+    .note {
+      margin-top: 20px;
+      font-size: 13px;
+      color: #888;
+      line-height: 1.5;
     }
 
     .thanks {
-      margin-top: 25px;
+      margin-top: 20px;
       font-size: 14px;
-      color: #888;
+      color: #777;
+    }
+
+    #copied {
+      display: none;
+      color: #39ff88;
+      font-size: 13px;
+      margin-top: 8px;
     }
   </style>
 </head>
@@ -87,22 +152,88 @@
       Your support helps me create more content and keep the streams going.
     </p>
 
-    <div class="upi">
-      <strong>UPI ID</strong><br><br>
-      9834417914@ybl
+    <!-- QR CODE -->
+    <div class="qr-box">
+      <div id="qrcode"></div>
     </div>
 
+    <div class="scan-text">
+      Scan with any UPI App
+    </div>
+
+    <!-- UPI ID -->
+    <div class="upi-box">
+      <div class="upi-label">
+        UPI ID
+      </div>
+
+      <div class="upi-id">
+        9834417914@ybl
+      </div>
+    </div>
+
+    <!-- COPY BUTTON -->
+    <button class="button copy-button" onclick="copyUPI()">
+      COPY UPI ID
+    </button>
+
+    <div id="copied">
+      UPI ID copied!
+    </div>
+
+    <!-- UPI DEEP LINK -->
     <a
       class="button"
       href="upi://pay?pa=9834417914@ybl&pn=HarshhPlays">
       PAY WITH UPI
     </a>
 
+    <div class="note">
+      Android users can try "Pay With UPI".<br>
+      You can also scan the QR code using your preferred UPI app.
+    </div>
+
     <div class="thanks">
       Thank you for supporting HarshhPlays.
     </div>
 
   </div>
+
+  <script>
+
+    const upiID = "9834417914@ybl";
+    const payeeName = "HarshhPlays";
+
+    const upiURL =
+      "upi://pay?pa=" +
+      upiID +
+      "&pn=" +
+      encodeURIComponent(payeeName);
+
+    // Generate QR Code
+    new QRCode(document.getElementById("qrcode"), {
+      text: upiURL,
+      width: 200,
+      height: 200,
+      correctLevel: QRCode.CorrectLevel.H
+    });
+
+    // Copy UPI ID
+    function copyUPI() {
+
+      navigator.clipboard.writeText(upiID).then(function() {
+
+        document.getElementById("copied").style.display = "block";
+
+        setTimeout(function() {
+          document.getElementById("copied").style.display = "none";
+        }, 2000);
+
+      });
+
+    }
+
+  </script>
 
 </body>
 </html>
